@@ -1,7 +1,13 @@
 <template>
-
+  <div class="min-h-screen">
+    <navbar></navbar>
+  </div>
 </template>
 
 <script>
-export default {}
+import Navbar from '@/components/Navbar/Navbar.vue'
+
+export default {
+  components: { Navbar },
+}
 </script>
