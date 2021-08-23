@@ -1,18 +1,18 @@
 <template>
     <div class="flex flex-row-reverse py-5 px-5">
         <navbar-item>
-            <div class="text-gray-800 mx-5 cursor-pointer">
+            <div class="text-gray-800 mx-3 cursor-pointer">
                 <gear-icon class="h-5">></gear-icon>
             </div>
         </navbar-item>
         <navbar-item>
-            <div class="flex flex-row text-gray-800 relative mx-5 cursor-pointer">
+            <div class="flex flex-row text-gray-800 relative mx-3 cursor-pointer">
                 <bullhorn-icon class="h-5">></bullhorn-icon>
                 <pin v-show="alerts.length" class="absolute top-3 left-3" :width-height="4"></pin>
             </div>
         </navbar-item>
         <navbar-item>
-            <div class="flex flex-row text-gray-800 mx-5 cursor-pointer">
+            <div class="flex flex-row text-gray-800 mx-3 cursor-pointer">
                 <span class="" contenteditable="true"></span>
                 <edit-icon class="h-5"></edit-icon>
             </div>
@@ -27,14 +27,24 @@ import BullhornIcon from '@/components/Icons/BullhornIcon.vue'
 import GearIcon from '@/components/Icons/GearIcon.vue'
 import EditIcon from '@/components/Icons/EditIcon.vue'
 
+import { mapGetters, mapActions  } from 'vuex'
+
 export default {
     components: { NavbarItem, Pin, BullhornIcon, GearIcon, EditIcon },
-    data: () => {
-        return {
-            alerts: [
-                // 'TEST'
-            ]
-        }
+    computed: {
+        ...mapGetters('alert', {
+            alerts: 'getAlerts'
+        })
+    },
+    mounted() {
+        this.initAlerts()
+        this.fetchAlerts()
+    },
+    methods: {
+        ...mapActions('alert', {
+            initAlerts: 'initAlerts',
+            fetchAlerts: 'fetchAlerts',
+        })
     }
 }
 </script>
