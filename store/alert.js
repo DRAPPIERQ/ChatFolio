@@ -28,6 +28,9 @@ export const actions = {
       Promise.resolve(e)
     }
   },
+  setSeenAlerts({ commit}, id) {
+    commit('setSeenAlerts', id)
+  },
   initAlerts() {
     Cookies.set(
       'alert_alerts',
@@ -45,5 +48,6 @@ export const actions = {
 }
 
 export const mutations = {
-  setAlerts: (state, alerts) => (state.alerts = alerts)
+  setAlerts: (state, alerts) => (state.alerts = alerts),
+  setSeenAlerts: (state, id) => (state.alerts = state.alerts.map(a => { if (a.id == id) { a.seen = !a.seen } return a })),
 }
