@@ -5,7 +5,7 @@
                 <gear-icon class="h-5">></gear-icon>
             </div>
         </navbar-item>
-        <navbar-item>
+        <navbar-item dropdown>
             <div class="flex flex-row text-gray-800 relative mx-3 cursor-pointer">
                 <bullhorn-icon class="h-5">></bullhorn-icon>
                 <pin v-show="alerts.length" class="absolute top-3 left-3" :width-height="4"></pin>

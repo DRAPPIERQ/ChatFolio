@@ -21,7 +21,7 @@ export const getters = {
 export const actions = {
   fetchAlerts({ commit, dispatch }) {
     try {
-      const response = JSON.parse(Cookies.get('alert/alerts'))
+      const response = JSON.parse(Cookies.get('alert_alerts'))
       console.log('FETCH DATA', response)
       commit('setAlerts', response)
     } catch (e) {
@@ -30,7 +30,7 @@ export const actions = {
   },
   initAlerts() {
     Cookies.set(
-      'alert/alerts',
+      'alert_alerts',
       JSON.stringify([
         {
           id: 1,
@@ -40,7 +40,7 @@ export const actions = {
         }
       ])
     )
-    console.log('INIT DATA', JSON.parse(Cookies.get('alert/alerts')))
+    console.log('INIT DATA', JSON.parse(Cookies.get('alert_alerts')))
   }
 }
 
