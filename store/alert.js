@@ -35,12 +35,12 @@ export const actions = {
     Cookies.set(
       'alert_alerts',
       JSON.stringify([
-        {
-          id: 1,
-          title: 'Update v1.2.3 🎉',
-          content: "Here's come the v1.2.3",
-          seen: false
-        }
+        // {
+        //   id: 1,
+        //   title: 'Update v1.2.3 🎉',
+        //   content: "Here's come the v1.2.3",
+        //   seen: false
+        // }
       ])
     )
     console.log('INIT DATA', JSON.parse(Cookies.get('alert_alerts')))

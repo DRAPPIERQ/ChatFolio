@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-row-reverse py-5 px-5">
     <navbar-item>
-      <div class="text-gray-800 mx-3 cursor-pointer">
+      <div class="text-gray-900 mx-3 cursor-pointer">
         <gear-icon class="h-5">></gear-icon>
       </div>
     </navbar-item>
     <navbar-item dropdown @dropdownstate="closeOpenDropdown($event)">
-      <div class="flex flex-row text-gray-800 relative mx-3 cursor-pointer">
+      <div class="flex flex-row text-gray-900 relative mx-3 cursor-pointer">
         <bullhorn-icon class="h-5">></bullhorn-icon>
         <pin
           v-if="alerts.filter((e) => !e.seen).length"
@@ -14,7 +14,7 @@
         ></pin>
       </div>
 
-      <template v-slot:dropdown>
+      <template v-slot:dropdown v-if="alerts.length">
         <div
           v-for="alert in alerts"
           :key="alert.id"
@@ -28,9 +28,18 @@
           <p class="text-gray-500 text-sm">{{ alert.content }}</p>
         </div>
       </template>
+      <template v-slot:dropdown v-else>
+        <div class="flex flex-col bg-white relative p-2 rounded-lg">
+          <div class="flex flex-row">
+            <p class="text-gray-500 text-sm">
+              Il n'y a aucune alerte.
+            </p>
+          </div>
+        </div>
+      </template>
     </navbar-item>
     <navbar-item>
-      <div class="flex flex-row text-gray-800 mx-3 cursor-pointer">
+      <div class="flex flex-row text-gray-900 mx-3 cursor-pointer">
         <span class="" contenteditable="true"></span>
         <edit-icon class="h-5"></edit-icon>
       </div>
@@ -50,9 +59,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: { NavbarItem, Pin, BullhornIcon, GearIcon, EditIcon },
   data: () => {
-      return {
-        timer: null
-      }
+    return {
+      timer: null
+    }
   },
   computed: {
     ...mapGetters('alert', {
@@ -70,17 +79,18 @@ export default {
       fetchAlerts: 'fetchAlerts'
     }),
     closeOpenDropdown(state) {
-        console.log(state)
-        if (state) {
-            this.timer = setTimeout(
-                () => (this.alerts.forEach(a => this.setSeenAlerts(a.id))),
-                3000)
-        } else {
-            if (this.timer) {
-                clearTimeout(this.timer)
-                this.timer = null
-            }
+      console.log(state)
+      if (state) {
+        this.timer = setTimeout(
+          () => this.alerts.forEach((a) => this.setSeenAlerts(a.id)),
+          3000
+        )
+      } else {
+        if (this.timer) {
+          clearTimeout(this.timer)
+          this.timer = null
         }
+      }
     }
   }
 }
